@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using BookStore.API.Data;
-using BookStore.API.Models.Authors;
-using BookStore.API.Models.Books;
-using BookStore.API.Models.DTOs.Books;
+﻿using BookStore.API.Data;
 using BookStore.API.Services.Interfaces;
 using BookStoreAPI.Models.Authtors;
 using BookStoreAPI.Models.Books;
@@ -30,7 +26,7 @@ namespace BookStore.API.Services
                 CategoryId = bookAddDto.CategoryId,
             };
             book.BookAuthors = bookAddDto.AuthorIds
-                .Select(ai => new Models.BooksAuthors.BookAuthor
+                .Select(ai => new Models.BookAuthors.BookAuthor
                 {
                     AuthorId = ai
                 }).ToList();
@@ -100,13 +96,19 @@ namespace BookStore.API.Services
             if (!allowedFileExtensions.Contains(fileExtension))
                 throw new FileLoadException(nameof(fileExtension));
             var filePath = Path.Combine("Images", file.Name + "_" + Guid.NewGuid() + fileExtension);
-            var fullPath = Path.Combine(webHost.WebRootPath, filePath);
+            var webRootPath = Path.Combine(webHost.ContentRootPath, "wwwrot");
+            var fullPath = Path.Combine(webRootPath, filePath);
             using var stream = System.IO.File.Open(fullPath, FileMode.OpenOrCreate);
             await file.CopyToAsync(stream);
             book.ImageUrl = filePath;
             dbContext.Books.Update(book);
             await dbContext.SaveChangesAsync();
             return await GetBookByIdAsync(book.Id);
+        }
+
+        public Task DeleteBookAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

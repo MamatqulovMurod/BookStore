@@ -10,7 +10,8 @@ namespace BookStore.API.Services.Interfaces
         Task<BookViewDto> UpdateBookAsync(BookUpdateDto bookUpdateDto);
         Task<BookViewDto> DeleteBookByIdAsync(Guid id);
         Task<BookViewDto> UpdateBookImageByIdAsync(Guid id, IFormFile file);
+        
     }
 }
 
-}
+
