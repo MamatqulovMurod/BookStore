@@ -26,7 +26,7 @@ namespace BookStore.API.Services
                 CategoryId = bookAddDto.CategoryId,
             };
             book.BookAuthors = bookAddDto.AuthorIds
-                .Select(ai => new Models.BookAuthors.BookAuthor
+                .Select(ai => new BookStoreAPI.Models.BookAuthors.BookAuthor
                 {
                     AuthorId = ai
                 }).ToList();
@@ -106,9 +106,6 @@ namespace BookStore.API.Services
             return await GetBookByIdAsync(book.Id);
         }
 
-        public Task DeleteBookAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
