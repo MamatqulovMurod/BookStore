@@ -11,6 +11,5 @@ namespace BookStoreAPI.Models.Categories
         [MaxLength(255), Required]
         public string Name { get; set; }
         public List<Book> Books { get; set; }
-
     }
 }
